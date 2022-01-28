@@ -355,15 +355,23 @@ glm::vec4 Renderer::traceRayTF2D(const Ray& ray, float sampleStep) const
 // The 2D transfer function settings can be accessed through m_config.TF2DIntensity and m_config.TF2DRadius.
 float Renderer::getTF2DOpacity(float intensity, float gradientMagnitude) const
 {
-    float x = abs((intensity - m_config.TF2DIntensity) / m_config.TF2DRadius);
-    if (x >= 1) {
+    if (abs(intensity - m_config.TF2DIntensity) >= m_config.TF2DRadius){
         return 0.0f;
     }
-    float y = gradientMagnitude / m_pGradientVolume->maxMagnitude();
-    if (y < x) {
+    // Calculate the slope for the left side triangle
+    float a1 = -m_pGradientVolume->maxMagnitude() / m_config.TF2DRadius;
+    // Calculate the slope for the right side of the triangle
+    float a2 = -a1;
+    // Calculate the intercepts for the left and right side
+    float b1 = -m_config.TF2DIntensity * a1;
+    float b2 = -m_config.TF2DIntensity * a2;
+    // Calculate the x coordinate of the intersection between the line y=gradientMagnitude and the two sides
+    float x1 = (gradientMagnitude - b1) / a1;
+    float x2 = (gradientMagnitude - b2) / a2;
+    if (intensity < x1 || intensity > x2) {
         return 0.0f;
     }
-    return x;
+    return 1 - abs(intensity - m_config.TF2DIntensity) / abs(x2 - m_config.TF2DIntensity);
 }
 
 // This function computes if a ray intersects with the axis-aligned bounding box around the volume.
