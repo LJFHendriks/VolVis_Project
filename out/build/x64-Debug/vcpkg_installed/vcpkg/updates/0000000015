@@ -1,0 +1,9 @@
+Package: tbb
+Version: 2020_U3
+Port-Version: 6
+Architecture: x64-windows
+Multi-Arch: same
+Abi: dfa4e8bd2ca6c633186125a32e60639a91916b4eea3d446586f63df688833c9e
+Description: Intel's Threading Building Blocks.
+Type: Port
+Status: install ok installed

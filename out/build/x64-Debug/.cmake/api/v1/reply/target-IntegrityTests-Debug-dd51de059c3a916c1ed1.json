@@ -1,0 +1,333 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "integrity_tests/IntegrityTests.exe"
+		},
+		{
+			"path" : "integrity_tests/IntegrityTests.pdb"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"_add_executable",
+			"add_executable",
+			"target_link_libraries",
+			"target_compile_options",
+			"set_project_warnings"
+		],
+		"files" : 
+		[
+			"D:/Code/Study/vcpkg/scripts/buildsystems/vcpkg.cmake",
+			"integrity_tests/CMakeLists.txt",
+			"cmake/CompilerWarnings.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 1,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 540,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 4,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 6,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 85,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 92,
+				"parent" : 4
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "/permissive-"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/W4"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/wd4100"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14242"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14254"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14263"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14265"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14287"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/we4289"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14296"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14311"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14545"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14546"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14547"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14549"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14555"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14619"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14640"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14826"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14905"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14906"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/w14928"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "/wd4201"
+				},
+				{
+					"fragment" : "-std:c++20"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 3,
+					"define" : "FMT_LOCALE"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "FMT_SHARED"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_SCL_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 3,
+					"define" : "_SILENCE_CXX17_UNCAUGHT_EXCEPTION_DEPRECATION_WARNING"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "D:/Code/Study/VolVis_Git/scivis_project/src"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/vcpkg_installed/x64-windows/include"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3
+				],
+				"standard" : "20"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "VolVis::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "ImGuiWrapper::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "IntegrityTests::@84c41ca8a0b3f4cd76ce",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "/machine:x64 /debug /INCREMENTAL /subsystem:console",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "VolVis.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "ImGuiWrapper.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "vcpkg_installed\\x64-windows\\debug\\lib\\imguid.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "vcpkg_installed\\x64-windows\\debug\\lib\\nfd_d.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "vcpkg_installed\\x64-windows\\debug\\lib\\tbb_debug.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "vcpkg_installed\\x64-windows\\debug\\lib\\fmtd.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "IntegrityTests",
+	"nameOnDisk" : "IntegrityTests.exe",
+	"paths" : 
+	{
+		"build" : "integrity_tests",
+		"source" : "integrity_tests"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "integrity_tests/src/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "integrity_tests/src/tests.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

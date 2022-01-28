@@ -1,0 +1,58 @@
+Package: vcpkg-cmake-config
+Version: 2021-05-22
+Port-Version: 1
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 008272901b97688f7214086da02852254425d7504d4ddf1d656e4aeb53fb3d7a
+Type: Port
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2021-07-30
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a719613f569c7284407bf72afa2d10fec07299508567cb124e4f54b79baf0445
+Type: Port
+Status: install ok installed
+
+Package: catch2
+Version: 2.13.7
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: ea14b3e31538a075ee804952f31fd125066f35cf337f6a97a589e555b5127fe8
+Description: A modern, header-only test framework for unit testing.
+Type: Port
+Status: install ok installed
+
+Package: fmt
+Version: 8.0.1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 398f75a24e04040420fb7ea575d3b02ac04f4354841fa2ed5cb23102b1363e97
+Description: Formatting library for C++. It can be used as a safe alternative to printf or as a fast alternative to IOStreams.
+Type: Port
+Status: install ok installed
+
+Package: opengl
+Version: 0.0
+Port-Version: 9
+Architecture: x64-windows
+Multi-Arch: same
+Abi: d1531b9e579d32f88001750e46c87b080b510169cadd53f8af43749c44441b13
+Description: Open Graphics Library (OpenGL)[3][4][5] is a cross-language, cross-platform application programming interface (API) for rendering 2D and 3D vector graphics.
+Type: Port
+Status: install ok installed
+
+Package: glew
+Version: 2.2.0
+Depends: opengl, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7a99033436e06e6754487b1da92d44196145b578a748444f590bf9a015bb01da
+Description: The OpenGL Extension Wrangler Library (GLEW) is a cross-platform open-source C/C++ extension loading library.
+Type: Port
+Status: install ok half-installed
+

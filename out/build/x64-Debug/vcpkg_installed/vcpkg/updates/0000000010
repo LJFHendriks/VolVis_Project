@@ -1,0 +1,10 @@
+Package: nativefiledialog
+Version: 2019-08-28
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 90656425c6c20a12eea875e238595ffb4336f9a36fa03952de7bfc89fee77dac
+Description: A tiny, neat C library that portably invokes native file open and save dialogs
+Type: Port
+Status: install ok half-installed

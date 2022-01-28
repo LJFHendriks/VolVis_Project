@@ -1,0 +1,93 @@
+Detecting compiler hash for triplet x64-windows...
+The following packages will be built and installed:
+    glew[core]:x64-windows -> 2.2.0 -- D:\Code\Study\vcpkg\buildtrees\versioning_\versions\glew\3211ed09c36542372ab3f1f690a42e2edbb072bc
+    glfw3[core]:x64-windows -> 3.3.4 -- D:\Code\Study\vcpkg\buildtrees\versioning_\versions\glfw3\aa7325438c3156b62488a559218d12e7e860196c
+    glm[core]:x64-windows -> 0.9.9.8#1 -- D:\Code\Study\vcpkg\buildtrees\versioning_\versions\glm\4aafac80f39a72fadaf6a31afb961790678062de
+    imgui[core]:x64-windows -> 1.84.2 -- D:\Code\Study\vcpkg\buildtrees\versioning_\versions\imgui\c07b221daf49a22fc9e8e7571bb329485f618a7f
+    ms-gsl[core]:x64-windows -> 3.1.0#1 -- D:\Code\Study\vcpkg\buildtrees\versioning_\versions\ms-gsl\d51947d40835a72b1728c68ca8587e04e3f8e1e2
+    nativefiledialog[core]:x64-windows -> 2019-08-28#1 -- D:\Code\Study\vcpkg\buildtrees\versioning_\versions\nativefiledialog\d765a8f84ba49c18701f68b7471f1b93b7313ddc
+    stb[core]:x64-windows -> 2020-09-14#1 -- D:\Code\Study\vcpkg\buildtrees\versioning_\versions\stb\fa6d7e998f98f122efa37f456ffa498d546185b9
+    tbb[core]:x64-windows -> 2020_U3#6 -- D:\Code\Study\vcpkg\buildtrees\versioning_\versions\tbb\e168e03c2e5776bdee59accf5f643ae26b0ddd84
+Restored 8 packages from C:\Users\leohe\AppData\Local\vcpkg\archives in 741.7 ms. Use --debug to see more details.
+Starting package 1/8: glew:x64-windows
+Installing package glew[core]:x64-windows...
+File D:\Code\Study\VolVis_Git\scivis_project\out\build\x64-Debug\vcpkg_installed\x64-windows\bin/glew32.dll was already present and will be overwritten
+Elapsed time for package glew:x64-windows: 56.75 ms
+Starting package 2/8: glfw3:x64-windows
+Installing package glfw3[core]:x64-windows...
+Elapsed time for package glfw3:x64-windows: 42.11 ms
+Starting package 3/8: glm:x64-windows
+Installing package glm[core]:x64-windows...
+Elapsed time for package glm:x64-windows: 462.7 ms
+Starting package 4/8: imgui:x64-windows
+Installing package imgui[core]:x64-windows...
+Elapsed time for package imgui:x64-windows: 34.92 ms
+Starting package 5/8: ms-gsl:x64-windows
+Installing package ms-gsl[core]:x64-windows...
+Elapsed time for package ms-gsl:x64-windows: 22.94 ms
+Starting package 6/8: nativefiledialog:x64-windows
+Installing package nativefiledialog[core]:x64-windows...
+Elapsed time for package nativefiledialog:x64-windows: 18.39 ms
+Starting package 7/8: stb:x64-windows
+Installing package stb[core]:x64-windows...
+Elapsed time for package stb:x64-windows: 33.86 ms
+Starting package 8/8: tbb:x64-windows
+Installing package tbb[core]:x64-windows...
+Elapsed time for package tbb:x64-windows: 199.5 ms
+
+Total elapsed time: 7.239 s
+
+The package catch2 provides CMake targets:
+
+    find_package(Catch2 CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE Catch2::Catch2)
+
+The package fmt provides CMake targets:
+
+    find_package(fmt CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE fmt::fmt)
+
+    # Or use the header-only version
+    find_package(fmt CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE fmt::fmt-header-only)
+
+The package glew is compatible with built-in CMake targets:
+
+    find_package(GLEW REQUIRED)
+    target_link_libraries(main PRIVATE GLEW::GLEW)
+
+The package glfw3 provides CMake targets:
+
+    find_package(glfw3 CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE glfw)
+
+The package glm provides CMake targets:
+
+    find_package(glm CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE glm::glm)
+
+The package imgui provides CMake targets:
+
+    find_package(imgui CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE imgui::imgui)
+
+The package ms-gsl provides CMake targets:
+
+    find_package(Microsoft.GSL CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE Microsoft.GSL::GSL)
+
+The package nativefiledialog provides CMake targets:
+
+    find_package(unofficial-nativefiledialog CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE unofficial::nativefiledialog::nfd)
+
+The package stb is header only and can be used from CMake via:
+
+    find_path(STB_INCLUDE_DIRS "stb.h")
+    target_include_directories(main PRIVATE ${STB_INCLUDE_DIRS})
+
+The package tbb provides CMake targets:
+
+    find_package(TBB CONFIG REQUIRED)
+    target_link_libraries(main PRIVATE TBB::tbb)
+

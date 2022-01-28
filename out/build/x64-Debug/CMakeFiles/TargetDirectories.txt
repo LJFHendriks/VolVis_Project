@@ -1,0 +1,10 @@
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/CMakeFiles/VolVis.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/CMakeFiles/ImGuiWrapper.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/CMakeFiles/Viewer.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/CMakeFiles/test.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/integrity_tests/CMakeFiles/IntegrityTests.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/integrity_tests/CMakeFiles/rebuild_cache.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/integrity_tests/CMakeFiles/test.dir
+D:/Code/Study/VolVis_Git/scivis_project/out/build/x64-Debug/integrity_tests/CMakeFiles/edit_cache.dir
