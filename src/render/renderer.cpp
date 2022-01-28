@@ -321,27 +321,27 @@ glm::vec4 Renderer::getTFValue(float val) const
 // Use the getTF2DOpacity function that you implemented to compute the opacity according to the 2D transfer function.
 glm::vec4 Renderer::traceRayTF2D(const Ray& ray, float sampleStep) const
 {
+    // this function is almost identical to traceRayComposite the only difference is the way we ge the tfValue
     glm::vec3 samplePos = ray.origin + ray.tmin * ray.direction;
     const glm::vec3 increment = sampleStep * ray.direction;
+
     glm::vec3 accumulatedColor = glm::vec3(0.0f);
     float accumulatedOpacity = 0.0f;
     for (float t = ray.tmin; t <= ray.tmax; t += sampleStep, samplePos += increment) {
         const float val = m_pVolume->getSampleInterpolate(samplePos);
         const volume::GradientVoxel gradient = m_pGradientVolume->getGradientInterpolate(samplePos);
+
+        // here we get the tfValue using the 2d transfer function
         const glm::vec4 tfValue = glm::vec4(glm::vec3(m_config.TF2DColor), m_config.TF2DColor[3]*getTF2DOpacity(val, gradient.magnitude));
+        
         glm::vec3 color = glm::vec3(tfValue);
         if (m_config.volumeShading) {
             const glm::vec3 normalizedCameraPosition = glm::normalize(m_pCamera->position());
             color = computePhongShading(color, gradient, normalizedCameraPosition, normalizedCameraPosition);
         }
 
-        if (t == ray.tmin) {
-            accumulatedColor = color * tfValue[3];
-            accumulatedOpacity = tfValue[3];
-        } else {
-            accumulatedColor += (1 - accumulatedOpacity) * color * tfValue[3];
-            accumulatedOpacity += (1 - accumulatedOpacity) * tfValue[3];
-        }
+        accumulatedColor += (1 - accumulatedOpacity) * color * tfValue[3];
+        accumulatedOpacity += (1 - accumulatedOpacity) * tfValue[3];
     }
     return glm::vec4(accumulatedColor, accumulatedOpacity);
 }
