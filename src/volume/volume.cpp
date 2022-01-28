@@ -161,6 +161,14 @@ float Volume::biLinearInterpolate(const glm::vec2& xyCoord, int z) const
 // This function represents the h(x) function, which returns the weight of the cubic interpolation kernel for a given position x
 float Volume::weight(float x)
 {
+    float a = -1.0f;
+    // we use a seperate variable for abs_x so we only have to calculate it once.
+    float abs_x = abs(x);
+    if (0 <= abs_x and abs_x < 1) {
+        return (a + 2) * pow(abs_x, 3) - (a + 3) * pow(abs_x, 2) + 1;
+    } else if (1 <= abs_x and abs_x < 2) {
+        return a * pow(abs_x, 3) - 5 * a * pow(abs_x, 2) + 8 * a * abs_x - 4 * a;
+    }
     return 0.0f;
 }
 
@@ -168,21 +176,44 @@ float Volume::weight(float x)
 // This functions returns the results of a cubic interpolation using 4 values and a factor
 float Volume::cubicInterpolate(float g0, float g1, float g2, float g3, float factor)
 {
-    return 0.0f;
+    return g0 * weight(factor + 1) + g1 * weight(factor) + g2 * weight(factor - 1) + g3 * weight(factor - 2);
 }
 
 // ======= OPTIONAL : This functions can be used to implement cubic interpolation ========
 // This function returns the value of a bicubic interpolation
 float Volume::biCubicInterpolate(const glm::vec2& xyCoord, int z) const
 {
-    return 0.0f;
+    // first we floor both the x- and y-coordinates
+    int intX = static_cast<int>(xyCoord.x);
+    int intY = static_cast<int>(xyCoord.y);
+
+    // Then we interpolate in the x-direction for all 4 different y-values
+    float x0 = cubicInterpolate(getVoxel(intX - 1, intY - 1, z), getVoxel(intX, intY - 1, z), getVoxel(intX + 1, intY - 1, z), getVoxel(intX + 2, intY - 1, z), xyCoord.x - intX);
+    float x1 = cubicInterpolate(getVoxel(intX - 1, intY, z), getVoxel(intX, intY, z), getVoxel(intX + 1, intY, z), getVoxel(intX + 2, intY, z), xyCoord.x - intX);
+    float x2 = cubicInterpolate(getVoxel(intX - 1, intY + 1, z), getVoxel(intX, intY + 1, z), getVoxel(intX + 1, intY + 1, z), getVoxel(intX + 2, intY + 1, z), xyCoord.x - intX);
+    float x3 = cubicInterpolate(getVoxel(intX - 1, intY + 2, z), getVoxel(intX, intY + 2, z), getVoxel(intX + 1, intY + 2, z), getVoxel(intX + 2, intY + 2, z), xyCoord.x - intX);
+
+    // We then use the result to interpolate in the y-direction
+    return cubicInterpolate(x0, x1, x2, x3, xyCoord.y - intY);
 }
 
 // ======= OPTIONAL : This functions can be used to implement cubic interpolation ========
 // This function computes the tricubic interpolation at coord
 float Volume::getSampleTriCubicInterpolation(const glm::vec3& coord) const
 {
-    return 0.0f;
+    // check if the coordinate is within the volume boundaries, we need to stay at least two values away from the edge for cubic interpolation
+    if (glm::any(glm::lessThan(coord - 1.0f, glm::vec3(0))) || glm::any(glm::greaterThanEqual(coord + 2.0f, glm::vec3(m_dim))))
+        return 0.0f;
+
+    // here we floor the z-coordinate
+    int intZ = static_cast<int>(coord.z);
+
+    // to interpolate for the z-direction we use the 4 results of the biLinearInterpolate for the different z values
+    return cubicInterpolate(biCubicInterpolate(glm::vec2(coord), intZ - 1),
+        biCubicInterpolate(glm::vec2(coord), intZ),
+        biCubicInterpolate(glm::vec2(coord), intZ + 1),
+        biCubicInterpolate(glm::vec2(coord), intZ + 2),
+        coord.z - intZ);
 }
 
 // Load an fld volume data file
