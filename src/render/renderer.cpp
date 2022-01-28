@@ -202,21 +202,26 @@ glm::vec4 Renderer::traceRayISO(const Ray& ray, float sampleStep) const
 // iterations such that it does not get stuck in degerate cases.
 float Renderer::bisectionAccuracy(const Ray& ray, float t0, float t1, float isoValue) const
 {
+    // We use i to track the number of iterations and terminate the loop when i equals maxIterations
+    int i = 0;
     int maxIterations = 100;
+    
     float isoValueDifference = 100;
     float currentT = t1;
-    while (isoValueDifference > 0.01 && maxIterations > 0) {
+    while (isoValueDifference > 0.01 && i < maxIterations) {
+        // every iteration step we cut the interval in half
         float newPoint = (t0 + t1) / 2;
         const glm::vec3 samplePos = ray.origin + newPoint * ray.direction;
         const float val = m_pVolume->getSampleInterpolate(samplePos);
         isoValueDifference = abs(val - isoValue);
+        // depending on where the value lies related to the isovalue we choose the left or right half
         if (val < isoValue) {
             t0 = newPoint;
         } else {
             t1 = newPoint;
         }
         currentT = newPoint;
-        maxIterations--;
+        i++;
     }
     return currentT;
 }
@@ -235,18 +240,23 @@ glm::vec3 Renderer::computePhongShading(const glm::vec3& color, const volume::Gr
 
     glm::vec3 whiteLight = glm::vec3(1.0f, 1.0f, 1.0f);
 
+    // These are the Phong shading parameters givin in the exercise
     float ka = 0.1;
     float kd = 0.7;
     float ks = 0.2;
     float alpha = 100;
 
+    // We can directly calculate the ambient term
     glm::vec3 ambientTerm = ka * whiteLight * color;
+
     glm::vec3 diffuseTerm = glm::vec3(0.0f);
     glm::vec3 specularTerm = glm::vec3(0.0f); 
     float diffuseCosine = glm::dot(-L, normalizedGradient);
+    // The diffuse and specular terms are only nonzero in case the diffuseCosine is positive.
     if (diffuseCosine > 0) {
         diffuseTerm = kd * whiteLight * color * diffuseCosine;
         float specularCosine = glm::dot(-reflection, V);
+        // The specular term is only nonzero when the specularCosine is also positive
         if (specularCosine > 0) {
             specularTerm = ks * whiteLight * color * pow(specularCosine, alpha);
         }

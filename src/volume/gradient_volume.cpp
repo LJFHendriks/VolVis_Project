@@ -122,16 +122,20 @@ GradientVoxel GradientVolume::getGradientLinearInterpolate(const glm::vec3& coor
     int intY = static_cast<int>(coord.y);
     int intZ = static_cast<int>(coord.z);
 
+    // For the bottom layer we interpolate first in the x-direction
     GradientVoxel xy00 = linearInterpolate(getGradient(intX, intY, intZ), getGradient(intX + 1, intY, intZ), coord.x - intX);
     GradientVoxel xy01 = linearInterpolate(getGradient(intX, intY + 1, intZ), getGradient(intX + 1, intY + 1, intZ), coord.x - intX);
 
+    // Then we interpolate in the y-direction for the bottem layer
     GradientVoxel xyz0 = linearInterpolate(xy00, xy01, coord.y - intY);
 
+    // Now we interpolate in the x-direction for the top layer
     GradientVoxel xy10 = linearInterpolate(getGradient(intX, intY, intZ + 1), getGradient(intX + 1, intY, intZ + 1), coord.x - intX);
     GradientVoxel xy11 = linearInterpolate(getGradient(intX, intY + 1, intZ + 1), getGradient(intX + 1, intY + 1, intZ + 1), coord.x - intX);
-
+    // We again interpolate in the y-direction
     GradientVoxel xyz1 = linearInterpolate(xy10, xy11, coord.y - intY);
 
+    // With this final interpolation we interpolate the z-coordinate
     return linearInterpolate(xyz0, xyz1, coord.z - intZ);
 }
 
