@@ -273,27 +273,30 @@ glm::vec3 Renderer::computePhongShading(const glm::vec3& color, const volume::Gr
 glm::vec4 Renderer::traceRayComposite(const Ray& ray, float sampleStep) const
 {
     //const float earlyTerminationDelta = 0.01;
+    
+    // we use these two variables to increment over the ray
     glm::vec3 samplePos = ray.origin + ray.tmin * ray.direction;
     const glm::vec3 increment = sampleStep * ray.direction;
+
+    // these two values are used to hold the accumulated values for the RayComposite
     glm::vec3 accumulatedColor = glm::vec3(0.0f);
     float accumulatedOpacity = 0.0f;
+
     for (float t = ray.tmin; t <= ray.tmax; t += sampleStep, samplePos += increment) {
         const float val = m_pVolume->getSampleInterpolate(samplePos);
         const glm::vec4 tfValue = getTFValue(val);
         glm::vec3 color = glm::vec3(tfValue);
+
+        // we apply Phong Shading when necessary
         if (m_config.volumeShading) {
             const glm::vec3 normalizedCameraPosition = glm::normalize(m_pCamera->position());
             const volume::GradientVoxel gradient = m_pGradientVolume->getGradientInterpolate(samplePos);
             color = computePhongShading(color, gradient, normalizedCameraPosition, normalizedCameraPosition);
         }
 
-        if (t == ray.tmin) {
-            accumulatedColor = color * tfValue[3];
-            accumulatedOpacity = tfValue[3];
-        } else {
-            accumulatedColor += (1 - accumulatedOpacity) * color * tfValue[3];
-            accumulatedOpacity += (1 - accumulatedOpacity) * tfValue[3];
-        }
+        // we increment the values using front-to-back compositing
+        accumulatedColor += (1 - accumulatedOpacity) * color * tfValue[3];
+        accumulatedOpacity += (1 - accumulatedOpacity) * tfValue[3];
 
         //if (1.0f - accumulatedOpacity < earlyTerminationDelta)
         //    break;
@@ -318,7 +321,29 @@ glm::vec4 Renderer::getTFValue(float val) const
 // Use the getTF2DOpacity function that you implemented to compute the opacity according to the 2D transfer function.
 glm::vec4 Renderer::traceRayTF2D(const Ray& ray, float sampleStep) const
 {
-    return glm::vec4(0.0f);
+    glm::vec3 samplePos = ray.origin + ray.tmin * ray.direction;
+    const glm::vec3 increment = sampleStep * ray.direction;
+    glm::vec3 accumulatedColor = glm::vec3(0.0f);
+    float accumulatedOpacity = 0.0f;
+    for (float t = ray.tmin; t <= ray.tmax; t += sampleStep, samplePos += increment) {
+        const float val = m_pVolume->getSampleInterpolate(samplePos);
+        const volume::GradientVoxel gradient = m_pGradientVolume->getGradientInterpolate(samplePos);
+        const glm::vec4 tfValue = glm::vec4(glm::vec3(m_config.TF2DColor), m_config.TF2DColor[3]*getTF2DOpacity(val, gradient.magnitude));
+        glm::vec3 color = glm::vec3(tfValue);
+        if (m_config.volumeShading) {
+            const glm::vec3 normalizedCameraPosition = glm::normalize(m_pCamera->position());
+            color = computePhongShading(color, gradient, normalizedCameraPosition, normalizedCameraPosition);
+        }
+
+        if (t == ray.tmin) {
+            accumulatedColor = color * tfValue[3];
+            accumulatedOpacity = tfValue[3];
+        } else {
+            accumulatedColor += (1 - accumulatedOpacity) * color * tfValue[3];
+            accumulatedOpacity += (1 - accumulatedOpacity) * tfValue[3];
+        }
+    }
+    return glm::vec4(accumulatedColor, accumulatedOpacity);
 }
 
 // ======= TODO: IMPLEMENT ========
@@ -330,8 +355,15 @@ glm::vec4 Renderer::traceRayTF2D(const Ray& ray, float sampleStep) const
 // The 2D transfer function settings can be accessed through m_config.TF2DIntensity and m_config.TF2DRadius.
 float Renderer::getTF2DOpacity(float intensity, float gradientMagnitude) const
 {
-
-    return 0.0f;
+    float x = abs((intensity - m_config.TF2DIntensity) / m_config.TF2DRadius);
+    if (x >= 1) {
+        return 0.0f;
+    }
+    float y = gradientMagnitude / m_pGradientVolume->maxMagnitude();
+    if (y < x) {
+        return 0.0f;
+    }
+    return x;
 }
 
 // This function computes if a ray intersects with the axis-aligned bounding box around the volume.
